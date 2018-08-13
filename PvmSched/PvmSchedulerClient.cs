@@ -1,4 +1,7 @@
 ﻿using BotClient.Auth;
+using Data;
+using Data.Facades;
+using Data.Models;
 using Discord;
 using Discord.WebSocket;
 using System;
@@ -11,11 +14,14 @@ namespace BotClient
     public class PvmSchedulerClient
     {
         private DiscordSocketClient client;
+        private DatabaseContext dbContext;
+
         public async Task Run()
         {
             this.client = new DiscordSocketClient();
-            client.MessageReceived += MessageReceived;
+            this.dbContext = new DatabaseContext();
 
+            client.MessageReceived += MessageReceived;
 
             client.Log += Log;
 
