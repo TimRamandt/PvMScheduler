@@ -1,5 +1,7 @@
 ﻿using BotClient.Auth;
 using Data;
+using Data.Facades;
+using Data.Models;
 using Discord;
 using Discord.WebSocket;
 using System;
@@ -18,8 +20,8 @@ namespace BotClient
         {
             this.client = new DiscordSocketClient();
             this.dbContext = new DatabaseContext();
-            client.MessageReceived += MessageReceived;
 
+            client.MessageReceived += MessageReceived;
 
             client.Log += Log;
 
