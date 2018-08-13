@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotClient", "PvmSched\BotClient.csproj", "{728718E6-3D77-4CF5-B62F-53D40F4EE16B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotClient", "PvmSched\BotClient.csproj", "{728718E6-3D77-4CF5-B62F-53D40F4EE16B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{93AEB70D-5D0A-43FB-A5DA-E108B3040281}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{728718E6-3D77-4CF5-B62F-53D40F4EE16B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{728718E6-3D77-4CF5-B62F-53D40F4EE16B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{728718E6-3D77-4CF5-B62F-53D40F4EE16B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93AEB70D-5D0A-43FB-A5DA-E108B3040281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93AEB70D-5D0A-43FB-A5DA-E108B3040281}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93AEB70D-5D0A-43FB-A5DA-E108B3040281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93AEB70D-5D0A-43FB-A5DA-E108B3040281}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
