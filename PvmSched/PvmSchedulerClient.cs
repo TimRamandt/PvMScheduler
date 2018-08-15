@@ -1,5 +1,6 @@
 ﻿using BotClient.Auth;
 using BotClient.Commands;
+using BotClient.Commands.Input;
 using BotClient.Core.Commands;
 using Data;
 using Data.Facades;
@@ -46,7 +47,18 @@ namespace BotClient
 
         private async Task MessageReceived(SocketMessage messageSocket)
         {
+            //TO DO: Create DiscordManagerClasses for channels & messages
+            var content = messageSocket.Content;
 
+            var parsedInput = InputCommandLexer.ToCommandInput(content);
+            if (parsedInput.FirstToken != this.commandManager.CommandToken)
+                return;
+
+            var command = this.commandManager.FindCommand(parsedInput.Name);
+            command.Execute(parsedInput.Parameters);
+
+            await messageSocket.Channel.SendMessageAsync(command.PrintOutput());
+            
         }
     }
 }

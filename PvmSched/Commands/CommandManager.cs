@@ -1,4 +1,5 @@
-﻿using BotClient.Commands.Input;
+﻿using BotClient.Commands.CommandImpls;
+using BotClient.Commands.Input;
 using BotClient.Core.Commands;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,17 @@ namespace BotClient.Commands
         public char CommandToken => '!'; //TO DO: put this in a config file.
         public List<ICommand> Commands => this.InitializeCommands();
 
-        public void FindAndExcuteCommand(string userInput)
+        public ICommand FindCommand(string commandName)
         {
-            var userCommandInput = InputCommandLexer.ToCommandInput(userInput);
-
-            this.Commands.Find(x => x.Name == userCommandInput.Name).Execute(userCommandInput.Parameters);
+            return this.Commands.Find(x => x.Name == commandName);
         }
 
         private List<ICommand> InitializeCommands()
         {
             var commands = new List<ICommand>();
+            var gameTimeCommand = new GametimeCommand();
+
+            commands.Add(gameTimeCommand);
 
             return commands;
         }

@@ -8,5 +8,7 @@ namespace BotClient.Core.Commands
     {
         string Name { get; }
         void Execute(string[] parameters);
+
+        string PrintOutput();
     }
 }

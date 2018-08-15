@@ -8,6 +8,8 @@ namespace BotClient.Core.Commands
     {
         char CommandToken { get; }
         List<ICommand> Commands { get; }
-        void FindAndExcuteCommand(string userInput);
+
+        ICommand FindCommand(string commandName);
+
     }
 }
