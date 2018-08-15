@@ -16,12 +16,8 @@ namespace Data
         public DbSet<DiscordUser> DiscordUsers { get; set; }
         public DbSet<Session> Sessions { get; set; }
 
-        public IDiscordUserFacade DiscordUserFacade;
 
-        public DatabaseContext()
-        {
-            this.DiscordUserFacade = new DiscordUserFacade(this);
-        }
+        public DatabaseContext() { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -3,6 +3,7 @@ using BotClient.Commands;
 using BotClient.Commands.Input;
 using BotClient.Core.Commands;
 using Data;
+using Data.Core;
 using Data.Facades;
 using Data.Models;
 using Discord;
@@ -17,13 +18,13 @@ namespace BotClient
     public class PvmSchedulerClient
     {
         private DiscordSocketClient client;
-        private DatabaseContext dbContext;
+        private IDatabase database;
         private ICommandManager commandManager;
 
         public async Task Run()
         {
             this.client = new DiscordSocketClient();
-            this.dbContext = new DatabaseContext();
+            this.database = new Database();
 
             this.commandManager = new CommandManager();
 
