@@ -5,12 +5,12 @@ using System.Text;
 
 namespace BotClient.Commands.CommandImpls
 {
-    public abstract class Command : ICommand
+    public class Command : ICommand
     {
-        public abstract string Name { get; }
+        public virtual string Name { get; }
         public string Output { get; set; }
 
-        public abstract void Execute(string[] parameters);
+        public virtual void Execute(string[] parameters) { }
 
         public string PrintOutput()
         {

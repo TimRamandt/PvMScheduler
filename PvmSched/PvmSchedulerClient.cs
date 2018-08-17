@@ -1,6 +1,7 @@
 ﻿using BotClient.Auth;
 using BotClient.Commands;
 using BotClient.Commands.Input;
+using BotClient.Core;
 using BotClient.Core.Commands;
 using Data;
 using Data.Core;
@@ -24,9 +25,9 @@ namespace BotClient
         public async Task Run()
         {
             this.client = new DiscordSocketClient();
-            this.database = new Database();
+            this.database = DataKernel.Instance.Resolve<IDatabase>();
 
-            this.commandManager = new CommandManager();
+            this.commandManager = BotClientKernel.Instance.Resolve<ICommandManager>();
 
             client.MessageReceived += MessageReceived;
 
