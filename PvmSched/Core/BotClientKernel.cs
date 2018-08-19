@@ -1,6 +1,9 @@
 ﻿using BotClient.Commands;
 using BotClient.Commands.CommandImpls;
 using BotClient.Core.Commands;
+using BotClient.Core.Discord.Messaging;
+using BotClient.Discord.Messaging;
+using BotClient.Discord.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -18,6 +21,8 @@ namespace BotClient.Core
             this.Containter = new ServiceCollection()
                 .AddSingleton<ICommand, Command>()
                 .AddSingleton<ICommandManager, CommandManager>()
+                .AddSingleton<IMessageManager, MessageManager>()
+                .AddScoped<IMessage, Message>()
                 .BuildServiceProvider();
         }
 
@@ -26,6 +31,6 @@ namespace BotClient.Core
         public T Resolve<T>()
         {
             return this.Containter.GetService<T>();
-        } 
+        }
     }
 }

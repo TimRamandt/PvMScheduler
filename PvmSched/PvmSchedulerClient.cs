@@ -3,6 +3,7 @@ using BotClient.Commands;
 using BotClient.Commands.Input;
 using BotClient.Core;
 using BotClient.Core.Commands;
+using BotClient.Core.Discord.Messaging;
 using Data;
 using Data.Core;
 using Data.Facades;
@@ -21,6 +22,7 @@ namespace BotClient
         private DiscordSocketClient client;
         private IDatabase database;
         private ICommandManager commandManager;
+        private IMessageManager messageManager;
 
         public async Task Run()
         {
@@ -28,6 +30,7 @@ namespace BotClient
             this.database = DataKernel.Instance.Resolve<IDatabase>();
 
             this.commandManager = BotClientKernel.Instance.Resolve<ICommandManager>();
+            this.messageManager = BotClientKernel.Instance.Resolve<IMessageManager>();
 
             client.MessageReceived += MessageReceived;
 
@@ -60,7 +63,6 @@ namespace BotClient
             command.Execute(parsedInput.Parameters);
 
             await messageSocket.Channel.SendMessageAsync(command.PrintOutput());
-            
         }
     }
 }
