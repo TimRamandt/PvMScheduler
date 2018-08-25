@@ -8,5 +8,6 @@ namespace Data.Core
     public interface IDatabase
     {
         IDiscordUserFacade DiscordUsers { get; }
+        IBossFacade BossFacade { get; }
     }
 }

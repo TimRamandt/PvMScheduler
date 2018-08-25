@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class SeedsTest : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,8 +12,7 @@ namespace Data.Migrations
                 name: "Bosses",
                 columns: table => new
                 {
-                    BossId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BossId = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -34,14 +33,32 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BossAliases",
+                columns: table => new
+                {
+                    AliasId = table.Column<string>(nullable: false),
+                    Alias = table.Column<string>(nullable: true),
+                    BossId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BossAliases", x => x.AliasId);
+                    table.ForeignKey(
+                        name: "FK_BossAliases_Bosses_BossId",
+                        column: x => x.BossId,
+                        principalTable: "Bosses",
+                        principalColumn: "BossId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
-                    RoleId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    PlayerDiscordUserId = table.Column<string>(nullable: true),
+                    RoleId = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    BossId = table.Column<int>(nullable: true)
+                    Abbreviation = table.Column<string>(nullable: true),
+                    BossId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -52,12 +69,6 @@ namespace Data.Migrations
                         principalTable: "Bosses",
                         principalColumn: "BossId",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Roles_DiscordUsers_PlayerDiscordUserId",
-                        column: x => x.PlayerDiscordUserId,
-                        principalTable: "DiscordUsers",
-                        principalColumn: "DiscordUserId",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,7 +77,7 @@ namespace Data.Migrations
                 {
                     SessionId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BossId = table.Column<int>(nullable: true),
+                    BossId = table.Column<string>(nullable: true),
                     Limit = table.Column<int>(nullable: false),
                     HostDiscordUserId = table.Column<string>(nullable: true),
                     Time = table.Column<DateTime>(nullable: false)
@@ -89,6 +100,23 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_BossAliases_AliasId",
+                table: "BossAliases",
+                column: "AliasId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BossAliases_BossId",
+                table: "BossAliases",
+                column: "BossId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bosses_BossId",
+                table: "Bosses",
+                column: "BossId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DiscordUsers_DiscordUserId",
                 table: "DiscordUsers",
                 column: "DiscordUserId",
@@ -100,9 +128,10 @@ namespace Data.Migrations
                 column: "BossId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Roles_PlayerDiscordUserId",
+                name: "IX_Roles_RoleId",
                 table: "Roles",
-                column: "PlayerDiscordUserId");
+                column: "RoleId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sessions_BossId",
@@ -117,6 +146,9 @@ namespace Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "BossAliases");
+
             migrationBuilder.DropTable(
                 name: "Roles");
 

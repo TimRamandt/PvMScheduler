@@ -15,21 +15,42 @@ namespace Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.2-rtm-30932")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Data.Models.Boss", b =>
                 {
-                    b.Property<int>("BossId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("BossId")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
 
                     b.HasKey("BossId");
 
+                    b.HasIndex("BossId")
+                        .IsUnique();
+
                     b.ToTable("Bosses");
+                });
+
+            modelBuilder.Entity("Data.Models.BossAlias", b =>
+                {
+                    b.Property<string>("AliasId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Alias");
+
+                    b.Property<string>("BossId");
+
+                    b.HasKey("AliasId");
+
+                    b.HasIndex("AliasId")
+                        .IsUnique();
+
+                    b.HasIndex("BossId");
+
+                    b.ToTable("BossAliases");
                 });
 
             modelBuilder.Entity("Data.Models.DiscordUser", b =>
@@ -49,21 +70,21 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Models.Role", b =>
                 {
-                    b.Property<int>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("RoleId")
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("BossId");
+                    b.Property<string>("Abbreviation");
+
+                    b.Property<string>("BossId");
 
                     b.Property<string>("Name");
-
-                    b.Property<string>("PlayerDiscordUserId");
 
                     b.HasKey("RoleId");
 
                     b.HasIndex("BossId");
 
-                    b.HasIndex("PlayerDiscordUserId");
+                    b.HasIndex("RoleId")
+                        .IsUnique();
 
                     b.ToTable("Roles");
                 });
@@ -74,7 +95,7 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BossId");
+                    b.Property<string>("BossId");
 
                     b.Property<string>("HostDiscordUserId");
 
@@ -91,15 +112,18 @@ namespace Data.Migrations
                     b.ToTable("Sessions");
                 });
 
+            modelBuilder.Entity("Data.Models.BossAlias", b =>
+                {
+                    b.HasOne("Data.Models.Boss", "Boss")
+                        .WithMany("Aliases")
+                        .HasForeignKey("BossId");
+                });
+
             modelBuilder.Entity("Data.Models.Role", b =>
                 {
-                    b.HasOne("Data.Models.Boss")
+                    b.HasOne("Data.Models.Boss", "Boss")
                         .WithMany("Roles")
                         .HasForeignKey("BossId");
-
-                    b.HasOne("Data.Models.DiscordUser", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerDiscordUserId");
                 });
 
             modelBuilder.Entity("Data.Models.Session", b =>

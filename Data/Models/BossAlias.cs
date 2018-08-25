@@ -6,13 +6,13 @@ using System.Text;
 
 namespace Data.Models
 {
-    public class Boss
+    public class BossAlias
     {
         [Key]
+        public string AliasId { get; set; }
+        public string Alias { get; set; }
+
         public string BossId { get; set; }
-        public string Name { get; set; }
-        
-        public virtual List<BossAlias> Aliases { get; set; }
-        public virtual List<Role> Roles { get; set; }
+        public virtual Boss Boss { get; set; }
     }
 }

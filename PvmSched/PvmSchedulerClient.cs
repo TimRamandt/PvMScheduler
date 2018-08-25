@@ -1,18 +1,13 @@
 ﻿using BotClient.Auth;
-using BotClient.Commands;
 using BotClient.Commands.Input;
 using BotClient.Core;
 using BotClient.Core.Commands;
 using BotClient.Core.Discord.Messaging;
-using Data;
 using Data.Core;
-using Data.Facades;
 using Data.Models;
 using Discord;
 using Discord.WebSocket;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BotClient
@@ -39,6 +34,8 @@ namespace BotClient
             string token = TokenReader.ReadToken();
             await client.LoginAsync(TokenType.Bot, token);
             await client.StartAsync();
+
+            var testBoss = this.database.BossFacade.FindBoss("rockman");
 
             // Block this task until the program is closed.
             await Task.Delay(-1);

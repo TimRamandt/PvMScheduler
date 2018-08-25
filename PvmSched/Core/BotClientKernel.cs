@@ -3,7 +3,6 @@ using BotClient.Commands.CommandImpls;
 using BotClient.Core.Commands;
 using BotClient.Core.Discord.Messaging;
 using BotClient.Discord.Messaging;
-using BotClient.Discord.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;

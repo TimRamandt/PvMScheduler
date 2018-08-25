@@ -19,6 +19,7 @@ namespace Data.Core
             this.Containter = new ServiceCollection()
                 .AddSingleton<IDatabase, Database>()
                 .AddSingleton<IDiscordUserFacade,DiscordUserFacade>()
+                .AddSingleton<IBossFacade,BossFacade>()
                 .BuildServiceProvider();
         }
 
